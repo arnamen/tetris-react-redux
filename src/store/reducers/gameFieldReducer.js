@@ -19,6 +19,9 @@ const defaultState = {
 
 const reducer = (state = defaultState, action) => {
     switch (action.type) {
+        case actionTypes.CREATE_ELEMENT:
+            console.log('create element')
+            return state;
         case actionTypes.MOVE_LEFT:
             console.log('moved left')
             return state;

@@ -12,8 +12,8 @@ import scoreReducer from './store/reducers/scoreReducer'
 import gameFieldReducer from './store/reducers/gameFieldReducer'
 
 const rootReducer = combineReducers({
-  score: scoreReducer,
-  gameField: gameFieldReducer,
+  scoreRed: scoreReducer,
+  gameFieldRed: gameFieldReducer,
 })
 
 const store = createStore(rootReducer, 
