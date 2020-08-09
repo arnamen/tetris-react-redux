@@ -7,6 +7,7 @@ import R_figure from '../../assets/R/R.png';
 import S_figure from '../../assets/S/S.png';
 import T_figure from '../../assets/T/T.png';
 
+import TetrisBody from '../TetrisBody/TetrisBody';
 import TetrisElement from "../TetrisElement/TetrisElement";
 
 export default function GameField( props ) {
@@ -16,7 +17,7 @@ export default function GameField( props ) {
     return (
         <div className={classes.GameField}>
             <div className={classes.GameField_header}><span style={{marginTop: '-1vh'}}>TETRIS</span></div>
-            <div className={classes.GameField_body}></div>
+            <TetrisBody />
             <div className={classes.GameField_info_wrapper}> 
                 <div className={classes.GameField_score}>SCORE: 0</div>
                 <div className={classes.GameField_nextElemInfo}>NEXT: {nextElemImg}</div>
