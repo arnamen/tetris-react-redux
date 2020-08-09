@@ -1,4 +1,111 @@
 .GameField {
-    display: flex;
+    margin-left: 5vh;
+    padding: 1vh;
+    display: inline-block;
+    position: relative;
     align-items: center;
+    width: 590px;
+    height: 95vh;
+    border: 4px solid #060606;
+    background-color: #185a75;
+}
+
+.GameField_elemPreview {
+    height: 85%;
+}
+
+.GameField_body {
+    border-radius: 5px;
+    display: inline-block;
+    width: 405px;
+    height: 85vh;
+    box-shadow: 5px 9px 4px rgba(6, 6, 6, 0.75);
+    border: 4px solid #060606;
+    background-color: #2f2729;
+}
+
+.GameField_header {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 1vh;
+    width: 572px;
+    height: 6vh;
+    box-shadow: 5px 9px 4px rgba(6, 6, 6, 0.65);
+    border: 4px solid #060606;
+    background-color: #2f2729;
+    /*  */
+    text-align: center;
+    color: #f0a830;
+    line-height: 5vh;
+    font-size: 5vh;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.GameField_header::before {
+    content: "";
+    display: inline-block;
+    width: 2vh;
+    height: 2vh;
+    border-radius: 50%;
+    margin-right: 2vw;
+    background-color: #f0a830;
+}
+
+.GameField_header::after {
+    content: "";
+    display: inline-block;
+    width: 2vh;
+    height: 2vh;
+    border-radius: 50%;
+    margin-left: 2vw;
+    background-color: #f0a830;
+}
+
+.GameField_info_wrapper {
+    display: inline-block;
+    position: absolute;
+    top: 9.7vh;
+    right: 1.5vw;
+    width: 150px;
+}
+
+.GameField_score {
+    margin-bottom: 1vh;
+    border-radius: 10px;
+    display: inline-block;
+    width: 144px;
+    height: 38px;
+    box-shadow: 5px 9px 4px rgba(6, 6, 6, 0.75);
+    border: 4px solid #060606;
+    background-color: #2f2729;
+    /*  */
+    text-align: left;
+    color: #fcebb6;
+    line-height: 35px;
+    font-size: 25px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.GameField_nextElemInfo {
+    border-radius: 10px;
+    display: inline-block;
+    width: 144px;
+    height: 144px;
+    box-shadow: 5px 9px 4px rgba(6, 6, 6, 0.75);
+    border: 4px solid #060606;
+    background-color: #2f2729;
+    /*  */
+    text-align: center;
+    color: #fcebb6;
+    line-height: 30px;
+    font-size: 25px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
 }
