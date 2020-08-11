@@ -5,7 +5,7 @@ const cloneDeep = require('clone-deep');
 //если создать элемент невозможно (нету места) функция возвращает false что значит game over
 
 export const lowerElement = (currentElement = {}, gameField = []) => {
-
+    let gameOver = false;
     //проход по массиву с конца в начало
     //чтобы элементы не затирали действия тех,
     //которые стоят перед ними
@@ -18,8 +18,14 @@ export const lowerElement = (currentElement = {}, gameField = []) => {
             //значит элемент достиг конца игрового поля
             //или непустой ячейки
             if(index >= 200 || gameField[index].type !== 'empty') {
+
                 currentElement.isFalling = false;
-                 if(currentElement.justCreated) return false;
+
+                 if(currentElement.justCreated) {
+                    gameOver = true;
+                     /* currentElement = {}
+                     return gameOver; */
+                    }
                  else {
                      //если дальнейший спуск фрагмента невозможен - отменить действия с предыдущими фрагментами
                      for (let j = currentElement.elementPosition.length - 1; j > i; j--) {
@@ -34,11 +40,11 @@ export const lowerElement = (currentElement = {}, gameField = []) => {
                             type: fragmentData.color
                         };
                      }
-                     return true;
+                     return gameOver;
                     };
             };
 
-            currentElement.justCreated = false;
+            currentElement.justCreated = gameOver;
 
             gameField[prevIndex] = {
                 type: 'empty'
@@ -49,7 +55,7 @@ export const lowerElement = (currentElement = {}, gameField = []) => {
             };
         
     }
-    return true;
+    return gameOver;
 }
 //создать X*Y пустых ячеек
 export const createGameField = () => {

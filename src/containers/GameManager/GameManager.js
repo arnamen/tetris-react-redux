@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { MOVE_LEFT, MOVE_RIGHT, SCORE_UPDATE, GAME_FIELD_UPDATE, CREATE_ELEMENT, GAME_FIELD_CREATE, LOWER_ELEMENT } from '../../store/actions/actionTypes'
+import { MOVE_LEFT, MOVE_RIGHT, SCORE_UPDATE, GAME_FIELD_UPDATE, CREATE_ELEMENT, GAME_FIELD_CREATE, LOWER_ELEMENT, ROTATE_CLOCKWISE, ROTATE_COUNTERCLOCKWISE } from '../../store/actions/actionTypes'
 import { connect } from 'react-redux'
 
 import GameInformation from '../../components/GameInfo/GameInfo'
@@ -13,11 +13,11 @@ class GameManager extends Component {
     nextElement = null;
 
     addElement = (elementType) => {
+        console.log(elementType)
 
         this.nextElement = ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]
 
         this.props.onCreateElement(elementType);
-        this.props.onLowerElement();
         if(!this.props.gameOver) this.gameProcess();
         else console.log('game over')
     }
@@ -29,26 +29,38 @@ class GameManager extends Component {
                 //сохранить элемент как часть игрового поля и прекратить его обработку
                 this.addElement(this.nextElement);
                 clearInterval(gameProcessInterval);
-            } else this.props.onLowerElement();
+            } 
+            else this.props.onLowerElement();
 
-        }, 300)
+        }, 100)
     }
     
     moveLeft = () => {
-        console.log('moved left')
         this.props.onMoveLeft();
         this.props.onGameFieldUpdate();
     }
     
     moveRight = () => {
-        console.log('moved right')
         this.props.onMoveRight();
         this.props.onGameFieldUpdate();
     }
     
+    rotateClockwise = () => {
+        this.props.onRotateClockwise();
+        this.props.onGameFieldUpdate();
+    }
+    
+    rotateCounterclockwise = () => {
+        this.props.onRotateCounterclockwise();
+        this.props.onGameFieldUpdate();
+    }
+    
+
     keysDispatcher = (event) => {
         if(event.key==='ArrowLeft') this.moveLeft();
         else if(event.key === 'ArrowRight') this.moveRight();
+        else if(event.key === 'ArrowUp') this.rotateClockwise();
+        else if(event.key === 'ArrowDown') this.rotateCounterclockwise();
     }
     
 
@@ -96,6 +108,12 @@ const mapDispatchToProps = (dispatch) => ({
     }),
     onMoveRight:() => dispatch({
         type: MOVE_RIGHT,
+    }),
+    onRotateClockwise: () => dispatch({
+        type: ROTATE_CLOCKWISE
+    }),
+    onRotateCounterclockwise: () => dispatch({
+        type: ROTATE_COUNTERCLOCKWISE
     }),
     onLowerElement: () => dispatch({
         type: LOWER_ELEMENT

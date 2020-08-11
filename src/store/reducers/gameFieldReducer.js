@@ -66,7 +66,7 @@ const reducer = (state = defaultState, action) => {
         case actionTypes.LOWER_ELEMENT:
              let updatedField = cloneDeep(state.gameField);
              let updatedElement = cloneDeep(state.currentElement);
-             const gameStatus = !lowerElement(updatedElement,updatedField)
+             const gameStatus = lowerElement(updatedElement,updatedField)
 
             return {
                 ...state,
