@@ -10,8 +10,8 @@ import T_figure from '../../assets/T/T.png';
 import TetrisBody from '../TetrisBody/TetrisBody';
 
 export default function GameField( props ) {
-    const figure_path = L_figure || I_figure || R_figure || S_figure || T_figure;
-    const nextElemImg = <img className={classes.GameField_elemPreview} src={figure_path} alt={'L_figure'}></img>
+    
+    const nextElemImg = getNextElementImage(props.nextElement)
 
     return (
         <div tabIndex='0' 
@@ -29,4 +29,21 @@ export default function GameField( props ) {
 
         </div>
     )
+}
+
+const getNextElementImage = (elemType) => {
+    switch (elemType) {
+        case 'I':
+            return <img className={classes.GameField_elemPreview} src={I_figure} alt={'I_figure'}></img>;
+        case 'L':
+            return <img className={classes.GameField_elemPreview} src={L_figure} alt={'L_figure'}></img>;
+        case 'R':
+            return <img className={classes.GameField_elemPreview} src={R_figure} alt={'R_figure'}></img>;
+        case 'S':
+            return <img className={classes.GameField_elemPreview} src={S_figure} alt={'S_figure'}></img>;
+        case 'T':
+            return <img className={classes.GameField_elemPreview} src={T_figure} alt={'T_figure'}></img>;
+        default:
+            return <img className={classes.GameField_elemPreview} src={I_figure} alt={'I_figure'}></img>;
+    }
 }

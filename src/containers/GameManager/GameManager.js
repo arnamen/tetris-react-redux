@@ -10,7 +10,12 @@ const ELEMENT_TYPES = ['I','L','R','S','T'];
 
 class GameManager extends Component {
 
+    nextElement = null;
+
     addElement = (elementType) => {
+
+        this.nextElement = ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]
+
         this.props.onCreateElement(elementType);
         this.props.onLowerElement();
         if(!this.props.gameOver) this.gameProcess();
@@ -22,12 +27,11 @@ class GameManager extends Component {
 
             if(!this.props.currentElement.isFalling) {
                 //сохранить элемент как часть игрового поля и прекратить его обработку
-                this.addElement(ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]);
+                this.addElement(this.nextElement);
                 clearInterval(gameProcessInterval);
-            }
-            this.props.onLowerElement();
+            } else this.props.onLowerElement();
 
-        }, 500)
+        }, 300)
     }
     
     moveLeft = () => {
@@ -50,15 +54,17 @@ class GameManager extends Component {
 
     componentDidMount(){
         this.props.onGameFieldCreate();
-        let index = randomInteger(0,ELEMENT_TYPES.length-1);
-        console.log(index)
-        this.addElement(ELEMENT_TYPES[index]);
+        this.addElement(ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]);
     }
 
     render() {
         return (
             <React.Fragment>
-                <GameField onKeyDown={(event) => this.keysDispatcher(event)} gameFieldData={this.props.gameField}/>
+                <GameField 
+                onKeyDown={(event) => this.keysDispatcher(event)} 
+                gameFieldData={this.props.gameField}
+                nextElement={this.nextElement}
+                />
             <GameInformation />
             </React.Fragment>
         )

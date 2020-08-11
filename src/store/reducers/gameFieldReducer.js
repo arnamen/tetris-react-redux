@@ -15,7 +15,6 @@ const reducer = (state = defaultState, action) => {
 
         case actionTypes.CREATE_ELEMENT:
             const newElement = createElement(action.elemType);
-            console.log('create element')
             return {
                 ...state,
                 currentElement: newElement
@@ -36,8 +35,7 @@ const reducer = (state = defaultState, action) => {
         case actionTypes.MOVE_RIGHT:{
             const updatedField = cloneDeep(state.gameField);
             const movedElement = cloneDeep(state.currentElement);
-            const movedElementR = moveRight(movedElement, updatedField);
-
+            moveRight(movedElement, updatedField);
             return {
                 ...state,
                 currentElement: movedElement,
@@ -54,11 +52,11 @@ const reducer = (state = defaultState, action) => {
             };
 
         case actionTypes.GAME_FIELD_UPDATE:{
-            
+
             const updatedField = cloneDeep(state.gameField);
             const currentElement = cloneDeep(state.currentElement);
             updateGameField(currentElement, updatedField);
-
+            
             return {
                 ...state,
                 gameField: updatedField,
