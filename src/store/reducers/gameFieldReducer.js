@@ -70,7 +70,7 @@ const reducer = (state = defaultState, action) => {
              let updatedField = cloneDeep(state.gameField);
              let updatedElement = cloneDeep(state.currentElement);
              const gameStatus = lowerElement(updatedElement,updatedField)
-            console.log(updatedField)
+
             return {
                 ...state,
                 gameField: updatedField,
@@ -83,7 +83,7 @@ const reducer = (state = defaultState, action) => {
             let updatedField = cloneDeep(state.gameField)
 
             updatedField = clearFallingElementPos(state.currentElement, updatedField)
-            const rotatedElement = setRotate(state.currentElement);
+            const rotatedElement = setRotate(state.currentElement, 'clockwise');
 
             return {
                 ...state,
@@ -91,6 +91,20 @@ const reducer = (state = defaultState, action) => {
                 gameField: updatedField
             };
         }
+
+        case actionTypes.ROTATE_COUNTERCLOCKWISE: {
+            let updatedField = cloneDeep(state.gameField)
+
+            updatedField = clearFallingElementPos(state.currentElement, updatedField)
+            const rotatedElement = setRotate(state.currentElement, 'counterclockwise');
+
+            return {
+                ...state,
+                currentElement: rotatedElement,
+                gameField: updatedField
+            };
+        }
+    
         default:
             return state;
     }

@@ -58,6 +58,7 @@ class GameManager extends Component {
     }
     
     rotateCounterclockwise = () => {
+        console.log('here')
         this.props.onRotateCounterclockwise();
         this.props.onGameFieldUpdate();
     }
