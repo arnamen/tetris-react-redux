@@ -39,7 +39,7 @@ class GameManager extends Component {
                 }
             }
 
-        }, 300)
+        }, 200)
     }
     
     moveLeft = () => {
@@ -58,7 +58,7 @@ class GameManager extends Component {
     }
     
     rotateCounterclockwise = () => {
-        console.log('here')
+
         this.props.onRotateCounterclockwise();
         this.props.onGameFieldUpdate();
     }
@@ -74,8 +74,8 @@ class GameManager extends Component {
 
     componentDidMount(){
         this.props.onGameFieldCreate();
-        // this.addElement(ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]);
-        this.addElement('I')
+        this.addElement(ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]);
+        // this.addElement('I')
         this.props.onGameFieldUpdate()
     }
 

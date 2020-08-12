@@ -2,7 +2,7 @@ const cloneDeep = require('clone-deep');
 
 const setRotate = (currentElement, rotateDirection) => {
     const currentElementClone = cloneDeep(currentElement)
-    console.log('[rotate] ', currentElementClone)
+
     switch (currentElementClone.elementType) {
         case 'I':{
             const center = cloneDeep(currentElementClone.elementPosition[1])
@@ -47,7 +47,7 @@ const setRotate = (currentElement, rotateDirection) => {
 
 const rotate = (currentElement, center) => {
     const elementPosition = currentElement.elementPosition
-    console.log(center)
+
     elementPosition.map((fragment) => {
         const oldPosition = cloneDeep(fragment)
         
@@ -63,7 +63,7 @@ const rotate = (currentElement, center) => {
 
 const rotateReverse = (currentElement, center) => {
     const elementPosition = currentElement.elementPosition
-    console.log(center)
+
     elementPosition.map((fragment) => {
         const oldPosition = cloneDeep(fragment)
         

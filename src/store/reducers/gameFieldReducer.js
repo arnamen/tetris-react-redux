@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import * as actionTypes from '../actions/actionTypes'
-import { createElement, createGameField, updateGameField, moveLeft, moveRight, lowerElement, clearFallingElementPos } from '../utils/utils'
+import { createGameField, updateGameField, lowerElement, clearFallingElementPos } from '../utils/gameField'
 import setRotate from '../utils/rotating';
+import { createElement, moveLeft, moveRight } from '../utils/element';
 
 const cloneDeep = require('clone-deep');
 
