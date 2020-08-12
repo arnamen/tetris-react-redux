@@ -4,6 +4,17 @@ const cloneDeep = require('clone-deep');
 //пока он не упадёт вниз
 //если создать элемент невозможно (нету места) функция возвращает false что значит game over
 
+export const clearFallingElementPos = (currentElement, gameField) => {
+    currentElement.elementPosition.forEach((fragment) => {
+        const index = fragment.positionX + (fragment.positionY - 1) * 10;
+
+        gameField[index].type = 'empty';
+    })
+
+    return gameField;
+}
+
+
 export const lowerElement = (currentElement = {}, gameField = []) => {
     let gameOver = false;
     //проход по массиву с конца в начало
@@ -44,7 +55,7 @@ export const lowerElement = (currentElement = {}, gameField = []) => {
                     };
             };
 
-            currentElement.justCreated = gameOver;
+            currentElement.justCreated = false;
 
             gameField[prevIndex] = {
                 type: 'empty'
@@ -93,7 +104,7 @@ export const createElement = (elementType) => {
     return {
         elementPosition: elementPosition,
         elementType: elementType,
-        elementOrientation: 'horz',
+        elementOrientation: 0,
         isFalling: true,
         justCreated: true
     }

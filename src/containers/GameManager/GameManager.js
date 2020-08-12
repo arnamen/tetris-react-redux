@@ -13,7 +13,6 @@ class GameManager extends Component {
     nextElement = null;
 
     addElement = (elementType) => {
-        console.log(elementType)
 
         this.nextElement = ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]
 
@@ -32,7 +31,7 @@ class GameManager extends Component {
             } 
             else this.props.onLowerElement();
 
-        }, 100)
+        }, 1000)
     }
     
     moveLeft = () => {
@@ -66,7 +65,9 @@ class GameManager extends Component {
 
     componentDidMount(){
         this.props.onGameFieldCreate();
-        this.addElement(ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]);
+        // this.addElement(ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]);
+        this.addElement('T')
+        this.props.onGameFieldUpdate()
     }
 
     render() {

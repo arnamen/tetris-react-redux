@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import * as actionTypes from '../actions/actionTypes'
-import { createElement, createGameField, updateGameField, moveLeft, moveRight, lowerElement } from '../utils/utils'
+import { createElement, createGameField, updateGameField, moveLeft, moveRight, lowerElement, clearFallingElementPos } from '../utils/utils'
+import setRotate from '../utils/rotating';
 
 const cloneDeep = require('clone-deep');
 
@@ -15,6 +16,7 @@ const reducer = (state = defaultState, action) => {
 
         case actionTypes.CREATE_ELEMENT:
             const newElement = createElement(action.elemType);
+        
             return {
                 ...state,
                 currentElement: newElement
@@ -55,6 +57,7 @@ const reducer = (state = defaultState, action) => {
 
             const updatedField = cloneDeep(state.gameField);
             const currentElement = cloneDeep(state.currentElement);
+
             updateGameField(currentElement, updatedField);
             
             return {
@@ -75,6 +78,19 @@ const reducer = (state = defaultState, action) => {
                 gameOver: gameStatus
             };
         
+        case actionTypes.ROTATE_CLOCKWISE:{
+
+            let updatedField = cloneDeep(state.gameField)
+
+            updatedField = clearFallingElementPos(state.currentElement, updatedField)
+            const rotatedElement = setRotate(state.currentElement);
+            console.log(rotatedElement.elementPosition)
+            return {
+                ...state,
+                currentElement: rotatedElement,
+                gameField: updatedField
+            };
+        }
         default:
             return state;
     }
