@@ -70,7 +70,7 @@ const reducer = (state = defaultState, action) => {
              let updatedField = cloneDeep(state.gameField);
              let updatedElement = cloneDeep(state.currentElement);
              const gameStatus = lowerElement(updatedElement,updatedField)
-
+            console.log(updatedField)
             return {
                 ...state,
                 gameField: updatedField,
@@ -84,7 +84,7 @@ const reducer = (state = defaultState, action) => {
 
             updatedField = clearFallingElementPos(state.currentElement, updatedField)
             const rotatedElement = setRotate(state.currentElement);
-            console.log(rotatedElement.elementPosition)
+
             return {
                 ...state,
                 currentElement: rotatedElement,

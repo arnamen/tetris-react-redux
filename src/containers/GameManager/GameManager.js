@@ -29,9 +29,17 @@ class GameManager extends Component {
                 this.addElement(this.nextElement);
                 clearInterval(gameProcessInterval);
             } 
-            else this.props.onLowerElement();
+            else {
+                try {
+                    this.props.onLowerElement();
+                }
+                catch (error) {
+                    console.log(error)
+                    clearInterval(gameProcessInterval);
+                }
+            }
 
-        }, 1000)
+        }, 300)
     }
     
     moveLeft = () => {
@@ -66,7 +74,7 @@ class GameManager extends Component {
     componentDidMount(){
         this.props.onGameFieldCreate();
         // this.addElement(ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]);
-        this.addElement('T')
+        this.addElement('I')
         this.props.onGameFieldUpdate()
     }
 

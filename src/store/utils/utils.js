@@ -6,9 +6,9 @@ const cloneDeep = require('clone-deep');
 
 export const clearFallingElementPos = (currentElement, gameField) => {
     currentElement.elementPosition.forEach((fragment) => {
-        const index = fragment.positionX + (fragment.positionY - 1) * 10;
+        const index = fragment.positionX + (fragment.positionY) * 10;
 
-        gameField[index].type = 'empty';
+        if(index < 200) gameField[index].type = 'empty';
     })
 
     return gameField;
@@ -17,55 +17,50 @@ export const clearFallingElementPos = (currentElement, gameField) => {
 
 export const lowerElement = (currentElement = {}, gameField = []) => {
     let gameOver = false;
+
+    const currentElementCopy = cloneDeep(currentElement);
+    const gameFieldCopy = cloneDeep(gameField);
     //проход по массиву с конца в начало
     //чтобы элементы не затирали действия тех,
     //которые стоят перед ними
-    for (let i = currentElement.elementPosition.length - 1; i >= 0; i--) {
+    clearFallingElementPos(currentElement, gameFieldCopy)
+    currentElementCopy.elementPosition.forEach((fragmentData) => {
 
-            const fragmentData = currentElement.elementPosition[i];
-            const prevIndex = fragmentData.positionX + (fragmentData.positionY - 1) * 10;
-            const index = fragmentData.positionX + (++fragmentData.positionY - 1) * 10;
+            const index = fragmentData.positionX + (++fragmentData.positionY) * 10;
             //всего 200 ячеек, если индекс находится дальше
             //значит элемент достиг конца игрового поля
             //или непустой ячейки
-            if(index >= 200 || gameField[index].type !== 'empty') {
+            // clearFallingElementPos(currentElement, gameField)
+            if(index >= 200 || gameFieldCopy[index].type !== 'empty') {
 
-                currentElement.isFalling = false;
-
-                 if(currentElement.justCreated) {
+                //если элемент только создан и больше не может падать
+                //завершить игру
+                 if(currentElementCopy.justCreated) {
                     gameOver = true;
-                     /* currentElement = {}
-                     return gameOver; */
-                    }
-                 else {
-                     //если дальнейший спуск фрагмента невозможен - отменить действия с предыдущими фрагментами
-                     for (let j = currentElement.elementPosition.length - 1; j > i; j--) {
-                        const fragmentData = currentElement.elementPosition[j];
-                        const prevIndex = fragmentData.positionX + (fragmentData.positionY - 1) * 10;
-                        const index = fragmentData.positionX + (--fragmentData.positionY - 1) * 10;
-                        gameField[prevIndex] = {
-                            type: 'empty'
-                        };
-            
-                        gameField[index] = {
-                            type: fragmentData.color
-                        };
-                     }
-                     return gameOver;
                     };
-            };
+                    currentElementCopy.isFalling = false;
+                    return gameOver
+                }
+            else {
+                currentElementCopy.justCreated = false;
 
-            currentElement.justCreated = false;
-
-            gameField[prevIndex] = {
-                type: 'empty'
-            };
-
-            gameField[index] = {
+                gameFieldCopy[index] = {
                 type: fragmentData.color
-            };
+            }
+        }
         
+    })
+
+    if(currentElementCopy.isFalling){
+        Object.keys(currentElementCopy).forEach((key) => {
+            currentElement[key] = currentElementCopy[key];
+        })
+        gameField.forEach((cell, index) => {
+            cell.type = gameFieldCopy[index].type;
+        })
     }
+    else currentElement.isFalling = false;
+
     return gameOver;
 }
 //создать X*Y пустых ячеек
@@ -89,7 +84,7 @@ export const updateGameField = (currentElement = {}, gameField = []) => {
     for (let i = currentElement.elementPosition.length - 1; i >= 0; i--) {
 
         const fragmentData = currentElement.elementPosition[i];
-        const index = fragmentData.positionX + (fragmentData.positionY - 1) * 10;
+        const index = fragmentData.positionX + (fragmentData.positionY) * 10;
         gameField[index] = {
             type: fragmentData.color
         };
@@ -176,7 +171,7 @@ export const setElementPosition = (elementType) => {
 //сдвигает все фрагменты элемента влево на 1 клетку
 //при условии что крайний левый фрагмент не находится на позиции 0 по Х
 export const moveLeft = (currentElement = {}, gameField = []) => {
-
+    clearFallingElementPos(currentElement, gameField)
     const currentElementBackup = cloneDeep(currentElement);
 
     for (let i = 0; i < currentElement.elementPosition.length; i++) {
@@ -203,7 +198,7 @@ export const moveLeft = (currentElement = {}, gameField = []) => {
 //сдвигает все фрагменты элемента вправо на 1 клетку
 //при условии что крайний правый фрагмент не находится на позиции 9 по Х
 export const moveRight = (currentElement = {}, gameField = []) => {
-
+    clearFallingElementPos(currentElement, gameField)
     const currentElementBackup = cloneDeep(currentElement);
     
     for (let i = currentElement.elementPosition.length - 1; i >= 0; i--) {
