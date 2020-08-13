@@ -8,11 +8,9 @@ import './assets/Font/teletoon-lowercase/telelower.ttf'
 //
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import scoreReducer from './store/reducers/scoreReducer'
 import gameFieldReducer from './store/reducers/gameFieldReducer'
 
 const rootReducer = combineReducers({
-  scoreRed: scoreReducer,
   gameFieldRed: gameFieldReducer,
 })
 

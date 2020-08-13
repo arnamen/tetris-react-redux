@@ -1,5 +1,7 @@
 .TetrisBody {
     display: inline-grid;
+    position: relative;
+    z-index: -1;
     grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
     /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; */
     /*  */

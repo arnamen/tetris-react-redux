@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { MOVE_LEFT, MOVE_RIGHT, SCORE_UPDATE, GAME_FIELD_UPDATE, CREATE_ELEMENT, GAME_FIELD_CREATE, LOWER_ELEMENT, ROTATE_CLOCKWISE, ROTATE_COUNTERCLOCKWISE } from '../../store/actions/actionTypes'
+import { MOVE_LEFT, MOVE_RIGHT, SCORE_UPDATE, GAME_FIELD_UPDATE, CREATE_ELEMENT, GAME_FIELD_CREATE, ROTATE_CLOCKWISE, ROTATE_COUNTERCLOCKWISE, MOVE_DOWN, RESTART_GAME } from '../../store/actions/actionTypes'
 import { connect } from 'react-redux'
 
 import GameInformation from '../../components/GameInfo/GameInfo'
@@ -11,37 +11,52 @@ const ELEMENT_TYPES = ['I','L','R','S','T'];
 class GameManager extends Component {
 
     nextElement = null;
+    gameProcessInterval = null
 
     addElement = (elementType) => {
 
         this.nextElement = ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]
 
         this.props.onCreateElement(elementType);
-        if(!this.props.gameOver) this.gameProcess();
+        if(!this.props.gameOver) this.gameProcess(500);
         else console.log('game over')
     }
     
-    gameProcess = () => {
-        const gameProcessInterval = setInterval(() => {
+    gameProcess = (moveDownInterval) => {
+        this.props.onGameFieldUpdate()
+        this.gameProcessInterval = setInterval(() => {
 
             if(!this.props.currentElement.isFalling) {
                 //сохранить элемент как часть игрового поля и прекратить его обработку
+                clearInterval(this.gameProcessInterval);
                 this.addElement(this.nextElement);
-                clearInterval(gameProcessInterval);
             } 
             else {
                 try {
-                    this.props.onLowerElement();
+                    this.props.onMoveDown();
                 }
                 catch (error) {
                     console.log(error)
-                    clearInterval(gameProcessInterval);
+                    clearInterval(this.gameProcessInterval);
                 }
             }
 
-        }, 200)
+        }, moveDownInterval)
     }
     
+    restartGame = () => {
+        this.props.onRestart();
+        this.props.onGameFieldCreate();
+        setTimeout(() => {
+        //создать новый элемент и обрабатывать его падение
+        this.addElement(ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]);
+
+        this.props.onGameFieldUpdate()
+        }, 100)
+        
+    }
+    
+
     moveLeft = () => {
         this.props.onMoveLeft();
         this.props.onGameFieldUpdate();
@@ -65,28 +80,37 @@ class GameManager extends Component {
     
 
     keysDispatcher = (event) => {
+        if(this.props.gameOver) return;
+        if(event.key === 'Enter') {
+            clearInterval(this.gameProcessInterval);
+            this.gameProcess(10);
+        };
         if(event.key==='ArrowLeft') this.moveLeft();
         else if(event.key === 'ArrowRight') this.moveRight();
         else if(event.key === 'ArrowUp') this.rotateClockwise();
         else if(event.key === 'ArrowDown') this.rotateCounterclockwise();
     }
     
-
     componentDidMount(){
         this.props.onGameFieldCreate();
+        //создать новый элемент и обрабатывать его падение
         this.addElement(ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]);
-        // this.addElement('I')
+
         this.props.onGameFieldUpdate()
     }
 
     render() {
         return (
             <React.Fragment>
-                <GameField 
-                onKeyDown={(event) => this.keysDispatcher(event)} 
-                gameFieldData={this.props.gameField}
-                nextElement={this.nextElement}
-                />
+
+                    <GameField 
+                    restartGame={this.restartGame}
+                    onKeyDown={(event) => this.keysDispatcher(event)} 
+                    gameFieldData={this.props.gameField}
+                    nextElement={this.nextElement}
+                    score={this.props.score}
+                    />
+
             <GameInformation />
             </React.Fragment>
         )
@@ -104,11 +128,14 @@ const mapStateToProps = (state) => {
         currentElement: state.gameFieldRed.currentElement,
         gameField: state.gameFieldRed.gameField,
         gameOver: state.gameFieldRed.gameOver,
-        score: state.scoreRed.score
+        score: state.gameFieldRed.score
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
+    onRestart: () => dispatch({
+        type: RESTART_GAME
+    }),
     onCreateElement: (elemType) => dispatch({
         type: CREATE_ELEMENT,
         elemType: elemType
@@ -125,8 +152,8 @@ const mapDispatchToProps = (dispatch) => ({
     onRotateCounterclockwise: () => dispatch({
         type: ROTATE_COUNTERCLOCKWISE
     }),
-    onLowerElement: () => dispatch({
-        type: LOWER_ELEMENT
+    onMoveDown: () => dispatch({
+        type: MOVE_DOWN
     }),
     onScoreUpdate:(score) => dispatch({
         type: SCORE_UPDATE,

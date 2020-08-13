@@ -8,15 +8,18 @@ import orange_fragment from '../../assets/Fragments-svg/Fragment-4-orange.svg';
 import greenish_fragment from '../../assets/Fragments-svg/Fragment-5-greenish.svg';
 
 import classes from './TetrisBody.module.css'
+import GameOverScreen from './GameOverScreen/GameOverScreen';
 
 export default function TetrisBody( props ) {
 
     const cells = createCells(props.gameFieldData);
 
     return (
-        <div className={classes.TetrisBody}>
-            {cells}
-        </div>
+        <GameOverScreen restartGame={props.restartGame}>
+            <div className={classes.TetrisBody}>
+                {cells}
+            </div>
+        </GameOverScreen>
     )
 }
 

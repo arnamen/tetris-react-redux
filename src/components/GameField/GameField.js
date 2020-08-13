@@ -20,10 +20,10 @@ export default function GameField( props ) {
 
             <div className={classes.GameField_header}><span style={{marginTop: '-1vh'}}>TETRIS</span></div>
 
-            <TetrisBody gameFieldData={props.gameFieldData}/>
+            <TetrisBody gameFieldData={props.gameFieldData} restartGame={props.restartGame}/>
 
             <div className={classes.GameField_info_wrapper}> 
-                <div className={classes.GameField_score}>SCORE: 0</div>
+                <div className={classes.GameField_score}>SCORE: {props.score}</div>
                 <div className={classes.GameField_nextElemInfo}>NEXT: {nextElemImg}</div>
             </div>
 

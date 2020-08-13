@@ -13,63 +13,6 @@ export const clearFallingElementPos = (currentElement, gameField) => {
 
     return gameField;
 }
-
-
-export const lowerElement = (currentElement = {}, gameField = []) => {
-    let gameOver = false;
-
-    const currentElementCopy = cloneDeep(currentElement);
-    const gameFieldCopy = cloneDeep(gameField);
-    //проход по массиву с конца в начало
-    //чтобы элементы не затирали действия тех,
-    //которые стоят перед ними
-    clearFallingElementPos(currentElement, gameFieldCopy)
-    currentElementCopy.elementPosition.forEach((fragmentData) => {
-
-            const index = fragmentData.positionX + (++fragmentData.positionY) * 10;
-            //всего 200 ячеек, если индекс находится дальше
-            //значит элемент достиг конца игрового поля
-            //или непустой ячейки
-            // clearFallingElementPos(currentElement, gameField)
-            if(index >= 200 || gameFieldCopy[index].type !== 'empty') {
-
-                //если элемент только создан и больше не может падать
-                //завершить игру
-                 if(currentElementCopy.justCreated) {
-                    gameOver = true;
-                    };
-                    currentElementCopy.isFalling = false;
-                    return gameOver
-                }
-            else {
-                currentElementCopy.justCreated = false;
-
-                gameFieldCopy[index] = {
-                type: fragmentData.color
-            }
-        }
-        
-    })
-
-    if(currentElementCopy.isFalling){
-        Object.keys(currentElementCopy).forEach((key) => {
-            currentElement[key] = currentElementCopy[key];
-        })
-        gameField.forEach((cell, index) => {
-            cell.type = gameFieldCopy[index].type;
-        })
-    }
-    else {
-        currentElement.isFalling = false;
-        const checkedField = checkIfLineFinished(gameField)
-
-        gameField.forEach((cell, index) => {
-            cell.type = checkedField[index].type;
-        })
-    }
-
-    return gameOver;
-}
 //создать X*Y пустых ячеек
 export const createGameField = () => {
     const cells = [];
@@ -100,7 +43,8 @@ export const updateGameField = (currentElement = {}, gameField = []) => {
 
 }
 
-const checkIfLineFinished = (gameFieldOriginal) => {
+export const checkIfLineFinished = (gameFieldOriginal) => {
+    let earnedPoints = 0;
     let gameField = cloneDeep(gameFieldOriginal);
 
     const rowsNum = (gameField.length) / 10;
@@ -120,6 +64,7 @@ const checkIfLineFinished = (gameFieldOriginal) => {
         }
     }
     if(removeRow){
+        earnedPoints = 100;
         //удалить собранную сроку
         for (let i = 0; i < colsNum; i++) {
             const index = rowToRemove * 10 + i;
@@ -132,7 +77,9 @@ const checkIfLineFinished = (gameFieldOriginal) => {
             gameField[i].type = gameField[i-10].type;
             
         }
-        gameField = checkIfLineFinished(gameField) //проверить ещё раз (1 прогон 1 проверка)
+        const result = checkIfLineFinished(gameField);
+        gameField = result.gameField; //проверить ещё раз (1 прогон 1 проверка)
+        earnedPoints += result.earnedPoints;
     }
-    return gameField;
+    return {gameField, earnedPoints};
 }

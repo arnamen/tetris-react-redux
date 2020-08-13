@@ -1,15 +1,16 @@
 /* eslint-disable no-unused-vars */
 import * as actionTypes from '../actions/actionTypes'
-import { createGameField, updateGameField, lowerElement, clearFallingElementPos } from '../utils/gameField'
+import { createGameField, updateGameField, clearFallingElementPos, checkIfLineFinished } from '../utils/gameField'
 import setRotate from '../utils/rotating';
-import { createElement, moveLeft, moveRight } from '../utils/element';
+import { createElement, moveLeft, moveRight, moveDown } from '../utils/element';
 
 const cloneDeep = require('clone-deep');
 
 const defaultState = {
     gameField: [],
     currentElement: {},
-    gameOver: false
+    gameOver: false,
+    score: 0
 }
 
 const reducer = (state = defaultState, action) => {
@@ -46,6 +47,25 @@ const reducer = (state = defaultState, action) => {
             };
         }
 
+        case actionTypes.MOVE_DOWN:
+            let updatedField = cloneDeep(state.gameField);
+            let updatedElement = cloneDeep(state.currentElement);
+            let gameStatus = moveDown(updatedElement,updatedField)
+            let earnedPoints = 0;
+            if(!updatedElement.isFalling) {
+                const result = checkIfLineFinished(updatedField);
+                updatedField = result.gameField;
+                earnedPoints = result.earnedPoints;
+            };
+            console.log(earnedPoints)
+           return {
+               ...state,
+               gameField: updatedField,
+               currentElement: updatedElement,
+               gameOver: gameStatus,
+               score: state.score + earnedPoints
+           };
+
         case actionTypes.GAME_FIELD_CREATE:
 
             const newGameField = createGameField();
@@ -67,17 +87,6 @@ const reducer = (state = defaultState, action) => {
                 currentElement: currentElement
             };
         }
-        case actionTypes.LOWER_ELEMENT:
-             let updatedField = cloneDeep(state.gameField);
-             let updatedElement = cloneDeep(state.currentElement);
-             const gameStatus = lowerElement(updatedElement,updatedField)
-
-            return {
-                ...state,
-                gameField: updatedField,
-                currentElement: updatedElement,
-                gameOver: gameStatus
-            };
         
         case actionTypes.ROTATE_CLOCKWISE:{
 
@@ -105,7 +114,14 @@ const reducer = (state = defaultState, action) => {
                 gameField: updatedField
             };
         }
-    
+        
+        case actionTypes.RESTART_GAME: {
+            return {
+                ...state,
+                gameOver: false
+            };
+        }
+
         default:
             return state;
     }

@@ -12,7 +12,7 @@ const setRotate = (currentElement, rotateDirection) => {
         }
 
         case 'L':{
-            const center = cloneDeep(currentElementClone.elementPosition[0])
+            const center = cloneDeep(currentElementClone.elementPosition[1])
             
             if(rotateDirection === 'clockwise') return rotate(currentElementClone, center);
             else return rotateReverse(currentElementClone, center)

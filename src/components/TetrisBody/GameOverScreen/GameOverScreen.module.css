@@ -1,0 +1,52 @@
+.GameOverScreen {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: fit-content;
+    position: relative;
+}
+
+.GameOverScreen_title {
+    font-size: 3vw;
+    line-height: 3vw;
+    height: 3vw;
+    position: absolute;
+    /* выровнять по центру */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    margin: 0 auto;
+    margin-top: 20%;
+    color: #f0a830;
+}
+
+.gameOverScreen_buttonWrapper {
+        position: absolute;
+        text-align: center;
+        margin-top: 25vh;
+        /* выровнять по центру */
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+}
+
+.gameOverScreen_button {
+    background-color: #f0a830;
+    display: inline-block;
+    width: 17vw;
+    height: 10vh;
+    line-height: 10vh;
+    line-height: 5vh;
+    font-size: 5vh;
+    border: none;
+    color: white;
+    text-align: center;
+    opacity: 0.6;
+    transition: 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.gameOverScreen_button:hover {opacity: 1}
