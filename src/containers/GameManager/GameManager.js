@@ -12,6 +12,7 @@ class GameManager extends Component {
 
     nextElement = null;
     gameProcessInterval = null
+    gameStarted = false;
 
     addElement = (elementType) => {
 
@@ -43,6 +44,14 @@ class GameManager extends Component {
         }, moveDownInterval)
     }
     
+    startGame = () => {
+        this.gameStarted = true;
+        //создать новый элемент и обрабатывать его падение
+        this.addElement(ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]);
+
+        this.props.onGameFieldUpdate()
+    }
+
     restartGame = () => {
         this.props.onRestart();
         this.props.onGameFieldCreate();
@@ -91,29 +100,27 @@ class GameManager extends Component {
 
         if(event.type === 'touchend'){
             const gameField = document.querySelector('.GameOverScreen_GameOverScreen_notActive__Esn-f');
+            if(!gameField) return; //возможно тач произошел но игра не начата
             let touch = event.touches[0] || event.changedTouches[0];
             let x = touch.pageX;
-            console.log(x)
+
             const elementWidth = gameField.offsetHeight*0.4 / 2;
             if(x > elementWidth) this.moveRight();
             else if (x <= elementWidth) this.moveLeft();
-            console.log(gameField.offsetHeight)
 
         }
-    }
-    
+    } 
+
     componentDidMount(){
         this.props.onGameFieldCreate();
-        //создать новый элемент и обрабатывать его падение
-        this.addElement(ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]);
-
-        this.props.onGameFieldUpdate()
     }
 
     render() {
         return (
             <React.Fragment>
                     <GameField 
+                    gameStarted = {this.gameStarted}
+                    onGameStart = {() => this.startGame()}
                     restartGame={this.restartGame}
                     onKeyDown={(event) => this.keysDispatcher(event)} 
                     gameFieldData={this.props.gameField}

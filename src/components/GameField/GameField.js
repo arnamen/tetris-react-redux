@@ -21,7 +21,12 @@ export default function GameField( props ) {
 
             <div className={classes.GameField_header}><span style={{marginTop: '-1vh'}}>TETRIS</span></div>
 
-            <TetrisBody gameFieldData={props.gameFieldData} restartGame={props.restartGame}/>
+            <TetrisBody 
+            gameFieldData={props.gameFieldData} 
+            restartGame={props.restartGame}
+            gameStarted = {props.gameStarted}
+            onGameStart = {props.onGameStart}
+            />
 
             <div className={classes.GameField_info_wrapper}> 
                 <div className={classes.GameField_score}>SCORE: {props.score}</div>

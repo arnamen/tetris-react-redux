@@ -17,10 +17,13 @@ function TetrisBody( props ) {
     const cells = createCells(props.gameFieldData, props.onRotateClockwise);
 
     const appliedClasses = [classes.TetrisBody];
-    if(!props.gameOver) appliedClasses.push(classes.activeCells)
+    if(!props.gameOver && props.gameStarted) appliedClasses.push(classes.activeCells)
 
     return (
-        <GameOverScreen restartGame={props.restartGame}>
+        <GameOverScreen 
+        gameStarted = {props.gameStarted}
+        onGameStart = {props.onGameStart}
+        restartGame={props.restartGame}>
             <div className={appliedClasses.join(' ')}>
                 {cells}
             </div>

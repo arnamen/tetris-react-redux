@@ -8,19 +8,17 @@
 }
 
 .GameOverScreen_title {
-    font-size: 3vw;
-    line-height: 3vw;
-    height: 3vw;
+    font-size: 4vh;
+    line-height: 4vh;
+    height: 4vh;
     position: absolute;
     /* выровнять по центру */
     top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    left: 8vh;
     text-align: center;
 
     margin: 0 auto;
-    margin-top: 20%;
+    margin-top: 21vh;
     color: #f0a830;
 }
 
@@ -29,19 +27,15 @@
         text-align: center;
         margin-top: 25vh;
         /* выровнять по центру */
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        left: 7vh;
 }
 
 .gameOverScreen_button {
     background-color: #f0a830;
     display: inline-block;
-    width: 17vw;
-    height: 10vh;
+    width: 30vh;
+    height: fit-content;
     line-height: 10vh;
-    line-height: 5vh;
     font-size: 5vh;
     border: none;
     color: white;
@@ -58,11 +52,5 @@
 
     .GameField_info_wrapper {
         display: none;
-    }
-    .GameOverScreen_title {
-        font-size: 32px;
-    }
-    .gameOverScreen_button {
-        width: 32vw;
     }
 }
