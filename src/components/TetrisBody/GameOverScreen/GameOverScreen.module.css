@@ -1,7 +1,10 @@
 .GameOverScreen {
     background-color: rgba(0, 0, 0, 0.5);
     width: fit-content;
-    position: relative;
+}
+
+.GameOverScreen_notActive{
+    width: fit-content;
 }
 
 .GameOverScreen_title {
@@ -50,3 +53,16 @@
 }
 
 .gameOverScreen_button:hover {opacity: 1}
+
+@media (max-width: 600px) {
+
+    .GameField_info_wrapper {
+        display: none;
+    }
+    .GameOverScreen_title {
+        font-size: 32px;
+    }
+    .gameOverScreen_button {
+        width: 32vw;
+    }
+}

@@ -57,7 +57,7 @@ const reducer = (state = defaultState, action) => {
                 updatedField = result.gameField;
                 earnedPoints = result.earnedPoints;
             };
-            console.log(earnedPoints)
+
            return {
                ...state,
                gameField: updatedField,

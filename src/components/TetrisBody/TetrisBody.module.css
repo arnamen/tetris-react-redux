@@ -13,6 +13,10 @@
     background-color: #2f2729;
 }
 
+.activeCells {
+    z-index: auto;
+}
+
 .cell {
     box-sizing: border-box;
     height: 4vh;

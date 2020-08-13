@@ -1,3 +1,12 @@
 .Layout {
     display: flex;
+    background:url("../../assets/bg.jpg") center center/cover no-repeat;
+    height: 100vh;
+    touch-action: manipulation;
+}
+
+@media (max-width: 750px) {
+    .Layout {
+        display: block;
+    }
 }

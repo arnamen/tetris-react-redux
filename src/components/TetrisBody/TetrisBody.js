@@ -9,23 +9,28 @@ import greenish_fragment from '../../assets/Fragments-svg/Fragment-5-greenish.sv
 
 import classes from './TetrisBody.module.css'
 import GameOverScreen from './GameOverScreen/GameOverScreen';
+import { ROTATE_CLOCKWISE } from '../../store/actions/actionTypes';
+import { connect } from 'react-redux';
 
-export default function TetrisBody( props ) {
+function TetrisBody( props ) {
 
-    const cells = createCells(props.gameFieldData);
+    const cells = createCells(props.gameFieldData, props.onRotateClockwise);
+
+    const appliedClasses = [classes.TetrisBody];
+    if(!props.gameOver) appliedClasses.push(classes.activeCells)
 
     return (
         <GameOverScreen restartGame={props.restartGame}>
-            <div className={classes.TetrisBody}>
+            <div className={appliedClasses.join(' ')}>
                 {cells}
             </div>
         </GameOverScreen>
     )
 }
 
-const createCells = (gameFieldData = []) => {
+const createCells = (gameFieldData = [], onRotateClockwise) => {
     const cells = [];
-    gameFieldData.forEach((cellData, index) => {
+    gameFieldData.forEach((cellData) => {
         switch (cellData.type) {
             case 'empty':
                 cells.push(
@@ -35,35 +40,56 @@ const createCells = (gameFieldData = []) => {
             case 'white':
                 cells.push(
                     <div key={uuidv4()} className={classes.cell}>
-                        <img className={classes.tetrisFragment} src={white_fragment} alt='white fragment'></img>
+                        <img onTouchStart={(event) => {
+                            console.log('here')
+                            event.stopPropagation();
+                            onRotateClockwise();
+                            }} className={classes.tetrisFragment} src={white_fragment} alt='white fragment'></img>
                     </div>
                 )
                 break;
             case 'yellow':
                 cells.push(
                     <div key={uuidv4()} className={classes.cell}>
-                        <img className={classes.tetrisFragment} src={yellow_fragment} alt='yellow fragment'></img>
+                        <img onTouchStart={(event) => {
+                            console.log('here')
+                            event.stopPropagation();
+                            onRotateClockwise();
+                            }} className={classes.tetrisFragment} src={yellow_fragment} alt='yellow fragment'></img>
                     </div>
                 )
                 break;
             case 'brown':
                 cells.push(
                     <div key={uuidv4()} className={classes.cell}>
-                        <img className={classes.tetrisFragment} src={brown_fragment} alt='brown fragment'></img>
+                        <img onTouchStart={(event) => {
+                            console.log('here')
+                            event.stopPropagation();
+                            onRotateClockwise();
+                            }} className={classes.tetrisFragment} src={brown_fragment} alt='brown fragment'></img>
                     </div>
                 )
                 break;
             case 'orange':
                 cells.push(
                     <div key={uuidv4()} className={classes.cell}>
-                        <img className={classes.tetrisFragment} src={orange_fragment} alt='orange fragment'></img>
+                        <img onTouchStart={(event) => {
+                            console.log('here')
+                            event.stopPropagation();
+                            onRotateClockwise();
+                            }} className={classes.tetrisFragment} src={orange_fragment} alt='orange fragment'></img>
                     </div>
                 )
                 break;
             case 'greenish':
                 cells.push(
                     <div key={uuidv4()} className={classes.cell}>
-                        <img className={classes.tetrisFragment} src={greenish_fragment} alt='greenish fragment'></img>
+                        <img onTouchStart={(event) => {
+                            console.log('here')
+                            event.stopPropagation();
+                            onRotateClockwise();
+                            }} 
+                            className={classes.tetrisFragment} src={greenish_fragment} alt='greenish fragment'></img>
                     </div>
                 )
                 break;
@@ -73,3 +99,17 @@ const createCells = (gameFieldData = []) => {
     })
     return cells;
 }
+
+const mapStateToProps = (state) => {
+    return {
+        gameOver: state.gameFieldRed.gameOver
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    onRotateClockwise: () => dispatch({
+        type: ROTATE_CLOCKWISE
+    }),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TetrisBody);

@@ -4,7 +4,7 @@ import classes from './GameOverScreen.module.css'
 import { connect } from 'react-redux'
 
 function GameOverScreen( props ) {
-    let data = <div>
+    let data = <div className={classes.GameOverScreen_notActive}>
         {props.children}
     </div>
     if(props.gameOver) {

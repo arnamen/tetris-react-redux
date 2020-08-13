@@ -1,11 +1,40 @@
 import React from 'react'
 
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
 import classes from './GameInfo.module.css'
+
+import arrows_up_down from '../../assets/controls/arrows-up-down.png';
+import arrows_left_right from '../../assets/controls/arrows-left-right.png';
 
 export default function GameInfo() {
     return (
-        <div className={classes.Information}>
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat
+        <div className={classes.gameInfo_wrapper}> 
+            <Tabs>
+            <TabList>
+                <Tab><span>FAQ</span></Tab>
+                <Tab><span>Etc.</span></Tab>
+            </TabList>
+
+            <TabPanel>
+                <ul>
+                    <li className={classes.gameInfo_li}>
+                        To move element use arrows left and right
+                        <img className={classes.gameInfo_arrows_img} src={arrows_left_right} alt='arrows'></img>
+                    </li>
+                    <li className={classes.gameInfo_li}>
+                        To rotate element use arrows up and down
+                        <img className={classes.gameInfo_arrows_img} src={arrows_up_down} alt='arrows'></img>
+                        
+                        </li>
+                    <li className={classes.gameInfo_li}>To make element fall quickly press Enter</li>
+                </ul>
+            </TabPanel>
+            <TabPanel>
+                <h2 style={{color: 'white'}}>Some content...</h2>
+            </TabPanel>
+        </Tabs>
         </div>
     )
 }

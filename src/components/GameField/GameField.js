@@ -13,9 +13,10 @@ export default function GameField( props ) {
     
     const nextElemImg = getNextElementImage(props.nextElement)
 
-    return (
+    return ( 
         <div tabIndex='0' 
         onKeyDown={(event) => {props.onKeyDown(event)}}
+        onTouchEnd={(event) => {props.onKeyDown(event)}}
         className={classes.GameField}>
 
             <div className={classes.GameField_header}><span style={{marginTop: '-1vh'}}>TETRIS</span></div>

@@ -19,7 +19,6 @@ class GameManager extends Component {
 
         this.props.onCreateElement(elementType);
         if(!this.props.gameOver) this.gameProcess(500);
-        else console.log('game over')
     }
     
     gameProcess = (moveDownInterval) => {
@@ -55,7 +54,6 @@ class GameManager extends Component {
         }, 100)
         
     }
-    
 
     moveLeft = () => {
         this.props.onMoveLeft();
@@ -80,6 +78,7 @@ class GameManager extends Component {
     
 
     keysDispatcher = (event) => {
+
         if(this.props.gameOver) return;
         if(event.key === 'Enter') {
             clearInterval(this.gameProcessInterval);
@@ -89,6 +88,18 @@ class GameManager extends Component {
         else if(event.key === 'ArrowRight') this.moveRight();
         else if(event.key === 'ArrowUp') this.rotateClockwise();
         else if(event.key === 'ArrowDown') this.rotateCounterclockwise();
+
+        if(event.type === 'touchend'){
+            const gameField = document.querySelector('.GameOverScreen_GameOverScreen_notActive__Esn-f');
+            let touch = event.touches[0] || event.changedTouches[0];
+            let x = touch.pageX;
+            console.log(x)
+            const elementWidth = gameField.offsetHeight*0.4 / 2;
+            if(x > elementWidth) this.moveRight();
+            else if (x <= elementWidth) this.moveLeft();
+            console.log(gameField.offsetHeight)
+
+        }
     }
     
     componentDidMount(){
@@ -102,7 +113,6 @@ class GameManager extends Component {
     render() {
         return (
             <React.Fragment>
-
                     <GameField 
                     restartGame={this.restartGame}
                     onKeyDown={(event) => this.keysDispatcher(event)} 

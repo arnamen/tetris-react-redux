@@ -5,14 +5,16 @@
     position: relative;
     z-index: 0;
     align-items: center;
-    width: 590px;
+    width: 75vh;
     height: 95vh;
     border: 4px solid #060606;
     background-color: #185a75;
+    outline: none;
 }
 
 .GameField_elemPreview {
-    height: 85%;
+    width: 100%;
+    margin-top: -10%;
 }
 
 .GameField_header {
@@ -21,7 +23,7 @@
     align-items: center;
     border-radius: 10px;
     margin-bottom: 1vh;
-    width: 572px;
+    width: 73vh;
     height: 6vh;
     box-shadow: 5px 9px 4px rgba(6, 6, 6, 0.65);
     border: 4px solid #060606;
@@ -61,14 +63,14 @@
     position: absolute;
     top: 9.7vh;
     right: 1.5vw;
-    width: 150px;
+    width: 12vw;
 }
 
 .GameField_score {
     margin-bottom: 1vh;
     border-radius: 10px;
     display: inline-block;
-    width: 144px;
+    width: 100%;
     min-height: 38px;
     box-shadow: 5px 9px 4px rgba(6, 6, 6, 0.75);
     border: 4px solid #060606;
@@ -86,8 +88,9 @@
 .GameField_nextElemInfo {
     border-radius: 10px;
     display: inline-block;
-    width: 144px;
-    height: 144px;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
     box-shadow: 5px 9px 4px rgba(6, 6, 6, 0.75);
     border: 4px solid #060606;
     background-color: #2f2729;
@@ -99,4 +102,54 @@
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 1.2px;
+}
+
+@media (max-width: 1000px) {
+    .GameField_info_wrapper {
+        width: 16vw;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .GameField {
+        width: 95vw;
+        height: 100vh;
+        margin-left: 0;
+    }
+
+    .GameField_header {
+        width: 84vw;
+    }
+
+    .GameField_info_wrapper {
+        width: 23vw;
+        margin-right: 3vw;
+    }
+}
+
+@media (max-width: 415) {
+
+    .GameField_score {
+        font-size: 10px;
+    }
+    .GameField_nextElemInfo {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+
+    .GameField_info_wrapper {
+        width: 19vw;
+    }
+
+}
+
+@media (max-width: 320px) {
+
+    .GameField_info_wrapper {
+        display: none
+    }
+
 }

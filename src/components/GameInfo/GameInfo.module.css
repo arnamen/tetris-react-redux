@@ -1,5 +1,45 @@
 .Information {
-    margin: 2vh 0 0vh 10vw;
-    width: 30vw;
+    color: white;
+    width: 100%;
+}
+
+.gameInfo_header {
+    color: white;
+}
+
+.gameInfo_li {
+    color: white;
+    display: flex;
+    margin: 2vh 0;
+    align-items: center;
+}
+
+.gameInfo_li::before {
+    content: '';
+    background-color: white;
+    width: 0.5vw;
+    height: 0.5vw;
+    margin-right: 1vw;
+    border-radius: 50%;
+}
+
+.gameInfo_arrows_img {
+    width: 10vw;
+    margin-left: 1vw;
+}
+
+.gameInfo_wrapper {
     display: inline-block;
+}
+
+@media (max-width: 850px) {
+    .gameInfo_wrapper {
+        display: block;
+    }
+}
+
+@media (max-width: 600px) {
+    .gameInfo_wrapper {
+        display: none;
+    }
 }
