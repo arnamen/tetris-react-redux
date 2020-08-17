@@ -6,18 +6,20 @@ import * as serviceWorker from './serviceWorker';
 //
 import './assets/Font/teletoon-lowercase/telelower.ttf'
 //
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import gameFieldReducer from './store/reducers/gameFieldReducer'
 import scoresDataReducer from './store/reducers/scoresDataReducer'
+import thunk from 'redux-thunk'
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   gameFieldRed: gameFieldReducer,
   scoresData: scoresDataReducer
 })
 
-const store = createStore(rootReducer, 
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 ReactDOM.render(
   <React.StrictMode>

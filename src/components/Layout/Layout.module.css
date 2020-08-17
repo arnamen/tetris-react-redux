@@ -5,8 +5,8 @@
     touch-action: manipulation;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 600px) {
     .Layout {
-        display: block;
+        background: none;
     }
 }

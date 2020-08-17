@@ -53,8 +53,10 @@ class GameManager extends Component {
     }
 
     restartGame = () => {
+        this.props.onResetSavedScore();
         this.props.onRestart();
         this.props.onGameFieldCreate();
+        //небольшая задержка перед созданием первого элемента
         setTimeout(() => {
         //создать новый элемент и обрабатывать его падение
         this.addElement(ELEMENT_TYPES[randomInteger(0,ELEMENT_TYPES.length-1)]);
@@ -111,8 +113,14 @@ class GameManager extends Component {
         }
     } 
 
-    saveScore = (save = true || false, score) => {
-        if(save) this.props.onSaveNewScore(score)
+    saveScore = (save = true || false, score, scoreAndNameSaved) => {
+
+        if(save && scoreAndNameSaved) {
+            const userName = document.getElementById('input_name').value;
+
+            this.props.onSaveNewScore(score,userName)
+        }
+        else if(save) this.props.onUserSavedNewScore(score)
         else this.props.onDontSaveNewScore();
     }
     
@@ -189,12 +197,19 @@ const mapDispatchToProps = (dispatch) => ({
     onGameFieldUpdate:() => dispatch({
         type: actionTypes.GAME_FIELD_UPDATE,
     }),
-    onSaveNewScore: (score) => dispatch({
+    onUserSavedNewScore: () => dispatch({
+        type: actionTypes.SCORES_USER_SAVED_SCORE,
+    }),
+    onSaveNewScore: (score, userName) => dispatch({
         type: actionTypes.SCORES_SAVE_NEW_SCORE,
-        score: score
+        score: score,
+        userName: userName
     }),
     onDontSaveNewScore: () => dispatch({
         type: actionTypes.SCORES_DONT_SAVE_NEW_SCORE,
+    }),
+    onResetSavedScore: () => dispatch({
+        type: actionTypes.SCORES_RESET_SAVED_SCORE
     })
 })
 

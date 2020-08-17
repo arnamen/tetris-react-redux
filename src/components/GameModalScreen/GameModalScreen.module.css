@@ -13,6 +13,21 @@
         text-align: center;
         width: 100%;
 }
+
+.GameModalScreen_input {
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    height: 4vh;
+    font-size: 2.5vh;
+    border: 1px solid white;
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    margin-bottom: 5vh;
+    outline: none;
+    border-radius: 10px;
+}
+
 @media (max-width: 600px) {
 
     .GameField_info_wrapper {

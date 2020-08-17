@@ -19,7 +19,7 @@ export default function Button( props ) {
         default:
             break;
     }
-    console.log(className)
+
     return (
         <span className={className} onClick={props.onClick}>
             {props.children}

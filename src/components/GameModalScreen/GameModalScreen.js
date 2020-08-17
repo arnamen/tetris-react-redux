@@ -15,7 +15,7 @@ function GameModalScreen(props) {
 
 
 
-    let saveScoreDialog = setSaveScoreDialog(props.userSavedScore, props.score, props.saveScore)
+    let saveScoreDialog = setSaveScoreDialog(props.userSavedScore, props.score, props.saveScore, props.scoreSaved)
 
     if (props.gameOver) {
         data = <div className={classes.GameModalScreen}>
@@ -24,6 +24,7 @@ function GameModalScreen(props) {
                 <Title>Game Over</Title>
                 <Button type='orange'
                     onClick={() => props.restartGame()}> TRY <br /> AGAIN! </Button>
+                {saveScoreDialog}
             </div>
             {props.children}
         </div>
@@ -36,9 +37,6 @@ function GameModalScreen(props) {
                 <Title>START GAME</Title>
                 <Button type='orange'
                     onClick={() => props.onGameStart()}> BEGIN! </Button>
-
-                {saveScoreDialog}
-
             </div>
             {props.children}
         </div>
@@ -51,7 +49,13 @@ function GameModalScreen(props) {
     )
 }
 
-const setSaveScoreDialog = (userSavedScore, score, saveScoreFn) => {
+const setSaveScoreDialog = (userSavedScore, score, saveScoreFn, scoreSaved) => {
+
+    if (userSavedScore && scoreSaved)
+        return <React.Fragment>
+            <Title>Score saved successfully</Title>
+        </React.Fragment>
+
     switch (userSavedScore) {
         case null:
             return <React.Fragment>
@@ -62,14 +66,19 @@ const setSaveScoreDialog = (userSavedScore, score, saveScoreFn) => {
                 onClick={() => saveScoreFn(true, score)}> YES </Button>
         </React.Fragment>
         case true:
+            //в случае нажатия yes появится дополнительный диалог
+            //с просьбой ввести имя пользователя
+            //после этого в gameManager будут получены данные из input
+            //и отправлены в бд
             return <React.Fragment>
-            <Title>Score saved!</Title>
-            <Button type='green'> SAVED! </Button>
+            <Title>Write your name</Title>
+            <input type='text' className={classes.GameModalScreen_input} id='input_name'></input>
+            <Button type='green' 
+                onClick={() => saveScoreFn(true, score, true)}> SAVE </Button>
         </React.Fragment>
         case false:
             return <React.Fragment>
             <Title>Score wasn't saved</Title>
-            <Button type='red'> OKAY </Button>
         </React.Fragment>
         default:
             break;
@@ -79,7 +88,8 @@ const setSaveScoreDialog = (userSavedScore, score, saveScoreFn) => {
 const mapStateToProps = (state) => {
     return {
         gameOver: state.gameFieldRed.gameOver,
-        userSavedScore: state.scoresData.userSavedScore
+        userSavedScore: state.scoresData.userSavedScore,
+        scoreSaved: state.scoresData.scoreSaved
     }
 }
 
