@@ -1,7 +1,8 @@
 import React from 'react'
-
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+
+import Scoreboard from '../../containers/ScoreBoard/Scoreboard'
 
 import classes from './GameInfo.module.css'
 
@@ -14,7 +15,7 @@ export default function GameInfo() {
             <Tabs>
             <TabList>
                 <Tab><span>FAQ</span></Tab>
-                <Tab><span>Etc.</span></Tab>
+                <Tab><span>Scoreboard</span></Tab>
             </TabList>
 
             <TabPanel>
@@ -32,7 +33,7 @@ export default function GameInfo() {
                 </ul>
             </TabPanel>
             <TabPanel>
-                <h2 style={{color: 'white'}}>Some content...</h2>
+                <Scoreboard />
             </TabPanel>
         </Tabs>
         </div>

@@ -1,0 +1,13 @@
+.Title {
+    font-size: 4vh;
+    line-height: 4vh;
+    height: 4vh;
+    padding: 5vh 0;
+    /* выровнять по центру */
+    top: 0;
+    width: 100%;
+    text-align: center;
+
+    margin: 0 auto;
+    color: #f0a830;
+}

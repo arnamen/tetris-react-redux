@@ -1,0 +1,53 @@
+.button {
+    background-color: #f0a830;
+    display: inline-block;
+    width: 30vh;
+    height: fit-content;
+    line-height: 10vh;
+    font-size: 5vh;
+    border: none;
+    color: white;
+    text-align: center;
+    opacity: 0.6;
+    transition: 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.buttonYes {
+    background-color: #79d156;
+    display: inline-block;
+    min-width: 15vh;
+    width: fit-content;
+    height: fit-content;
+    line-height: 10vh;
+    font-size: 5vh;
+    border: none;
+    color: white;
+    text-align: center;
+    opacity: 0.6;
+    transition: 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.buttonNo {
+    background-color: #e74040;
+    display: inline-block;
+    min-width: 15vh;
+    width: fit-content;
+    height: fit-content;
+    line-height: 10vh;
+    font-size: 5vh;
+    border: none;
+    color: white;
+    text-align: center;
+    opacity: 0.6;
+    transition: 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button:hover,
+.buttonYes:hover,
+.buttonNo:hover {opacity: 1}

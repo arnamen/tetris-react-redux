@@ -8,27 +8,31 @@ import S_figure from '../../assets/S/S.png';
 import T_figure from '../../assets/T/T.png';
 
 import TetrisBody from '../TetrisBody/TetrisBody';
+import GameModalScreen from '../GameModalScreen/GameModalScreen';
 
-export default function GameField( props ) {
-    
+export default function GameField(props) {
+
     const nextElemImg = getNextElementImage(props.nextElement)
 
-    return ( 
-        <div tabIndex='0' 
-        onKeyDown={(event) => {props.onKeyDown(event)}}
-        onTouchEnd={(event) => {props.onKeyDown(event)}}
-        className={classes.GameField}>
+    return (
+        <div tabIndex='0'
+            onKeyDown={(event) => { props.onKeyDown(event) }}
+            onTouchEnd={(event) => { props.onKeyDown(event) }}
+            className={classes.GameField}>
 
-            <div className={classes.GameField_header}><span style={{marginTop: '-1vh'}}>TETRIS</span></div>
-
-            <TetrisBody 
-            gameFieldData={props.gameFieldData} 
-            restartGame={props.restartGame}
-            gameStarted = {props.gameStarted}
-            onGameStart = {props.onGameStart}
-            />
-
-            <div className={classes.GameField_info_wrapper}> 
+            <div className={classes.GameField_header}><span style={{ marginTop: '-1vh' }}>TETRIS</span></div>
+            <GameModalScreen
+                gameStarted={props.gameStarted}
+                onGameStart={props.onGameStart}
+                restartGame={props.restartGame}
+                saveScore={props.saveScore}
+                score={props.score}
+                >
+                <TetrisBody
+                    gameFieldData={props.gameFieldData}
+                />
+            </GameModalScreen>
+            <div className={classes.GameField_info_wrapper}>
                 <div className={classes.GameField_score}>SCORE: {props.score}</div>
                 <div className={classes.GameField_nextElemInfo}>NEXT: {nextElemImg}</div>
             </div>

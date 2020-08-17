@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { MOVE_LEFT, MOVE_RIGHT, SCORE_UPDATE, GAME_FIELD_UPDATE, CREATE_ELEMENT, GAME_FIELD_CREATE, ROTATE_CLOCKWISE, ROTATE_COUNTERCLOCKWISE, MOVE_DOWN, RESTART_GAME } from '../../store/actions/actionTypes'
+import * as actionTypes from '../../store/actions/actionTypes'
 import { connect } from 'react-redux'
 
 import GameInformation from '../../components/GameInfo/GameInfo'
@@ -85,7 +85,7 @@ class GameManager extends Component {
         this.props.onGameFieldUpdate();
     }
     
-
+    //пофиксить тач
     keysDispatcher = (event) => {
 
         if(this.props.gameOver) return;
@@ -111,6 +111,12 @@ class GameManager extends Component {
         }
     } 
 
+    saveScore = (save = true || false, score) => {
+        if(save) this.props.onSaveNewScore(score)
+        else this.props.onDontSaveNewScore();
+    }
+    
+
     componentDidMount(){
         this.props.onGameFieldCreate();
     }
@@ -126,6 +132,7 @@ class GameManager extends Component {
                     gameFieldData={this.props.gameField}
                     nextElement={this.nextElement}
                     score={this.props.score}
+                    saveScore={this.saveScore}
                     />
 
             <GameInformation />
@@ -151,36 +158,43 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     onRestart: () => dispatch({
-        type: RESTART_GAME
+        type: actionTypes.RESTART_GAME
     }),
     onCreateElement: (elemType) => dispatch({
-        type: CREATE_ELEMENT,
+        type: actionTypes.CREATE_ELEMENT,
         elemType: elemType
     }),
     onMoveLeft:() => dispatch({
-        type: MOVE_LEFT,
+        type: actionTypes.MOVE_LEFT,
     }),
     onMoveRight:() => dispatch({
-        type: MOVE_RIGHT,
+        type: actionTypes.MOVE_RIGHT,
     }),
     onRotateClockwise: () => dispatch({
-        type: ROTATE_CLOCKWISE
+        type: actionTypes.ROTATE_CLOCKWISE
     }),
     onRotateCounterclockwise: () => dispatch({
-        type: ROTATE_COUNTERCLOCKWISE
+        type: actionTypes.ROTATE_COUNTERCLOCKWISE
     }),
     onMoveDown: () => dispatch({
-        type: MOVE_DOWN
+        type: actionTypes.MOVE_DOWN
     }),
     onScoreUpdate:(score) => dispatch({
-        type: SCORE_UPDATE,
+        type: actionTypes.SCORE_UPDATE,
         score: score || 'score undefined'
     }),
     onGameFieldCreate:() => dispatch({
-        type: GAME_FIELD_CREATE,
+        type: actionTypes.GAME_FIELD_CREATE,
     }),
     onGameFieldUpdate:() => dispatch({
-        type: GAME_FIELD_UPDATE,
+        type: actionTypes.GAME_FIELD_UPDATE,
+    }),
+    onSaveNewScore: (score) => dispatch({
+        type: actionTypes.SCORES_SAVE_NEW_SCORE,
+        score: score
+    }),
+    onDontSaveNewScore: () => dispatch({
+        type: actionTypes.SCORES_DONT_SAVE_NEW_SCORE,
     })
 })
 

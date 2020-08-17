@@ -8,7 +8,6 @@ import orange_fragment from '../../assets/Fragments-svg/Fragment-4-orange.svg';
 import greenish_fragment from '../../assets/Fragments-svg/Fragment-5-greenish.svg';
 
 import classes from './TetrisBody.module.css'
-import GameOverScreen from './GameOverScreen/GameOverScreen';
 import { ROTATE_CLOCKWISE } from '../../store/actions/actionTypes';
 import { connect } from 'react-redux';
 
@@ -20,14 +19,10 @@ function TetrisBody( props ) {
     if(!props.gameOver && props.gameStarted) appliedClasses.push(classes.activeCells)
 
     return (
-        <GameOverScreen 
-        gameStarted = {props.gameStarted}
-        onGameStart = {props.onGameStart}
-        restartGame={props.restartGame}>
+        
             <div className={appliedClasses.join(' ')}>
                 {cells}
             </div>
-        </GameOverScreen>
     )
 }
 
