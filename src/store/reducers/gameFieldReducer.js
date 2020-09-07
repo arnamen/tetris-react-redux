@@ -71,7 +71,8 @@ const reducer = (state = defaultState, action) => {
             const newGameField = createGameField();
             return {
                 ...state,
-                gameField: newGameField
+                gameField: newGameField,
+                score: 0
             };
 
         case actionTypes.GAME_FIELD_UPDATE:{
