@@ -14,7 +14,7 @@ export const createElement = (elementType) => {
     }
 }
 
-//фармирование расположения элемента при создании
+//формирование расположения элемента при создании
 //для каждого case задаются фрагменты элмента по неким правилам (можно и вручную)
 const setInitialElementPosition = (elementType) => {
 
@@ -82,9 +82,9 @@ const setInitialElementPosition = (elementType) => {
 export const moveLeft = (currentElement = {}, gameField = []) => {
     clearFallingElementPos(currentElement, gameField)
     const currentElementBackup = cloneDeep(currentElement);
-
+    
     for (let i = 0; i < currentElement.elementPosition.length; i++) {
-        const index = currentElement.elementPosition[i].positionX + (currentElement.elementPosition[i].positionY - 1) * 10;
+        const index = currentElement.elementPosition[i].positionX + (currentElement.elementPosition[i].positionY) * 10;
         if(currentElement.elementPosition[i].positionX > 0 &&
             index < 200 && index > 0 && gameField[index-1].type === 'empty') {
             //стереть данные о том что в этой ячейке присутствует фрагмент элемента
@@ -111,7 +111,7 @@ export const moveRight = (currentElement = {}, gameField = []) => {
     const currentElementBackup = cloneDeep(currentElement);
     
     for (let i = currentElement.elementPosition.length - 1; i >= 0; i--) {
-        const index = currentElement.elementPosition[i].positionX + (currentElement.elementPosition[i].positionY - 1) * 10;
+        const index = currentElement.elementPosition[i].positionX + (currentElement.elementPosition[i].positionY) * 10;
         if(currentElement.elementPosition[i].positionX < 9 &&
             index < 200 && index > 0 && gameField[index+1].type === 'empty') {
 

@@ -6,7 +6,6 @@ const setRotate = (currentElement, rotateDirection, gameField) => {
     switch (currentElementClone.elementType) {
         case 'I':{
             const center = cloneDeep(currentElementClone.elementPosition[1])
-            
             if(rotateDirection === 'clockwise') return rotate(currentElementClone, center, gameField);
             else return rotateReverse(currentElementClone, center)
         }
@@ -51,14 +50,16 @@ const rotate = (currentElement, center, gameField) => {
 
     const currentElementOld = cloneDeep(currentElement);
     const elementPosition = currentElement.elementPosition
-
     elementPosition.map((fragment) => {
         const oldPosition = cloneDeep(fragment)
         
         fragment.positionX = oldPosition.positionY + center.positionX - center.positionY;
         fragment.positionY = center.positionX + center.positionY - oldPosition.positionX;
+        //fragment.positionY * 10 - в строке 10 элементов
         if(fragment.positionX + fragment.positionY * 10 > 200 || 
-            fragment.positionX + fragment.positionY * 10 < 0      ||
+            fragment.positionX + fragment.positionY * 10 < 0  ||
+            fragment.positionX < 0 ||
+            fragment.positionX >= 10 ||
             gameField[fragment.positionX + fragment.positionY * 10].type !== 'empty') isApplied = false;
         return fragment;
     })
