@@ -8,7 +8,15 @@ const cloneDeep = require('clone-deep');
 
 const defaultState = {
     gameField: [],
-    currentElement: {},
+    currentElement: {
+        elementPosition: {
+            X: 0,
+            Y: 0
+        },
+        elementType: '',
+        elementOrientation: 0,
+        isFalling: true,
+        justCreated: true},
     gameOver: false,
     score: 0
 }

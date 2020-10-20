@@ -80,6 +80,7 @@ const setInitialElementPosition = (elementType) => {
 //сдвигает все фрагменты элемента влево на 1 клетку
 //при условии что крайний левый фрагмент не находится на позиции 0 по Х
 export const moveLeft = (currentElement = {}, gameField = []) => {
+    if(!currentElement.isFalling) return currentElement;
     clearFallingElementPos(currentElement, gameField)
     const currentElementBackup = cloneDeep(currentElement);
     
@@ -107,6 +108,7 @@ export const moveLeft = (currentElement = {}, gameField = []) => {
 //сдвигает все фрагменты элемента вправо на 1 клетку
 //при условии что крайний правый фрагмент не находится на позиции 9 по Х
 export const moveRight = (currentElement = {}, gameField = []) => {
+    if(!currentElement.isFalling) return currentElement;
     clearFallingElementPos(currentElement, gameField)
     const currentElementBackup = cloneDeep(currentElement);
     
