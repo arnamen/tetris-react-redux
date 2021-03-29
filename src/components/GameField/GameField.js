@@ -17,7 +17,10 @@ export default function GameField(props) {
     return (
         <div tabIndex='0'
             onKeyDown={(event) => { props.onKeyDown(event) }}
-            onTouchEnd={(event) => { props.onKeyDown(event) }}
+            onTouchEnd={event => {
+                console.log(event.target)
+                props.onKeyDown(event)
+            }}
             className={classes.GameField}>
 
             <div className={classes.GameField_header}><span style={{ marginTop: '-1vh' }}>TETRIS</span></div>
@@ -30,6 +33,7 @@ export default function GameField(props) {
                 >
                 <TetrisBody
                     gameFieldData={props.gameFieldData}
+                    onEmptyCellTouch={event => props.onKeyDown(event)}
                 />
             </GameModalScreen>
             <div className={classes.GameField_info_wrapper}>

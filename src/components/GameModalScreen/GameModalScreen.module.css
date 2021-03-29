@@ -1,5 +1,4 @@
 .GameModalScreen {
-    background-color: rgba(0, 0, 0, 0.5);
     width: 41vh;
     position: relative;
 }
@@ -12,6 +11,10 @@
         position: absolute;
         text-align: center;
         width: 100%;
+        z-index: 2;
+        background-color: rgba(0, 0, 0, 0.5);
+        height: 100%;
+        
 }
 
 .GameModalScreen_input {

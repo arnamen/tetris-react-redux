@@ -89,7 +89,6 @@ class GameManager extends Component {
     
     //пофиксить тач
     keysDispatcher = (event) => {
-
         if(this.props.gameOver) return;
         if(event.key === 'Enter') {
             clearInterval(this.gameProcessInterval);
@@ -101,12 +100,16 @@ class GameManager extends Component {
         else if(event.key === 'ArrowDown') this.rotateCounterclockwise();
 
         if(event.type === 'touchend'){
-            const gameField = document.querySelector('.GameOverScreen_GameOverScreen_notActive__Esn-f');
-            if(!gameField) return; //возможно тач произошел но игра не начата
-            let touch = event.touches[0] || event.changedTouches[0];
-            let x = touch.pageX;
+            const gameField = document.querySelector('#TetrisBody');
+            if(!this.gameStarted) return; //возможно тач произошел но игра не начата
 
-            const elementWidth = gameField.offsetHeight*0.4 / 2;
+            let touch = event.touches[0] || event.changedTouches[0];
+            const appWidth = document.querySelector('body').offsetHeight; //transform 5vw margin to px
+            const margin = 5*appWidth/100;
+
+            let x = touch.pageX;
+            const elementWidth = gameField.offsetWidth / 2 + margin;
+
             if(x > elementWidth) this.moveRight();
             else if (x <= elementWidth) this.moveLeft();
 

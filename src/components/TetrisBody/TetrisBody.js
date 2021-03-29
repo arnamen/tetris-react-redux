@@ -13,20 +13,20 @@ import { connect } from 'react-redux';
 
 function TetrisBody( props ) {
 
-    const cells = createCells(props.gameFieldData, props.onRotateClockwise);
+    const cells = createCells(props.gameFieldData, props.onRotateClockwise, props.onEmptyCellTouch);
 
     const appliedClasses = [classes.TetrisBody];
     if(!props.gameOver && props.gameStarted) appliedClasses.push(classes.activeCells)
 
     return (
         
-            <div className={appliedClasses.join(' ')}>
+            <div className={appliedClasses.join(' ')} id="TetrisBody" >
                 {cells}
             </div>
     )
 }
 
-const createCells = (gameFieldData = [], onRotateClockwise) => {
+const createCells = (gameFieldData = [], onRotateClockwise, onEmptyCellTouch) => {
     const cells = [];
     gameFieldData.forEach((cellData) => {
         switch (cellData.type) {
@@ -39,7 +39,7 @@ const createCells = (gameFieldData = [], onRotateClockwise) => {
                 cells.push(
                     <div key={uuidv4()} className={classes.cell}>
                         <img onTouchStart={(event) => {
-                            console.log('here')
+
                             event.stopPropagation();
                             onRotateClockwise();
                             }} className={classes.tetrisFragment} src={white_fragment} alt='white fragment'></img>
@@ -50,7 +50,7 @@ const createCells = (gameFieldData = [], onRotateClockwise) => {
                 cells.push(
                     <div key={uuidv4()} className={classes.cell}>
                         <img onTouchStart={(event) => {
-                            console.log('here')
+
                             event.stopPropagation();
                             onRotateClockwise();
                             }} className={classes.tetrisFragment} src={yellow_fragment} alt='yellow fragment'></img>
@@ -61,7 +61,7 @@ const createCells = (gameFieldData = [], onRotateClockwise) => {
                 cells.push(
                     <div key={uuidv4()} className={classes.cell}>
                         <img onTouchStart={(event) => {
-                            console.log('here')
+
                             event.stopPropagation();
                             onRotateClockwise();
                             }} className={classes.tetrisFragment} src={brown_fragment} alt='brown fragment'></img>
@@ -72,7 +72,7 @@ const createCells = (gameFieldData = [], onRotateClockwise) => {
                 cells.push(
                     <div key={uuidv4()} className={classes.cell}>
                         <img onTouchStart={(event) => {
-                            console.log('here')
+
                             event.stopPropagation();
                             onRotateClockwise();
                             }} className={classes.tetrisFragment} src={orange_fragment} alt='orange fragment'></img>
@@ -83,7 +83,7 @@ const createCells = (gameFieldData = [], onRotateClockwise) => {
                 cells.push(
                     <div key={uuidv4()} className={classes.cell}>
                         <img onTouchStart={(event) => {
-                            console.log('here')
+
                             event.stopPropagation();
                             onRotateClockwise();
                             }} 

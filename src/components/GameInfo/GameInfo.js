@@ -2,7 +2,7 @@ import React from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-import Scoreboard from '../../containers/ScoreBoard/Scoreboard'
+import Scoreboard from '../../containers/ScoreBoard/ScoreBoard';
 
 import classes from './GameInfo.module.css'
 

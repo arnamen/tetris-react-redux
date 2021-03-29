@@ -115,7 +115,7 @@ const reducer = (state = defaultState, action) => {
             let updatedField = cloneDeep(state.gameField)
 
             updatedField = clearFallingElementPos(state.currentElement, updatedField)
-            const rotatedElement = setRotate(state.currentElement, 'counterclockwise');
+            const rotatedElement = setRotate(state.currentElement, 'counterclockwise', updatedField);
 
             return {
                 ...state,

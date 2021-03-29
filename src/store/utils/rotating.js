@@ -7,14 +7,14 @@ const setRotate = (currentElement, rotateDirection, gameField) => {
         case 'I':{
             const center = cloneDeep(currentElementClone.elementPosition[1])
             if(rotateDirection === 'clockwise') return rotate(currentElementClone, center, gameField);
-            else return rotateReverse(currentElementClone, center)
+            else return rotateReverse(currentElementClone, center, gameField)
         }
 
         case 'L':{
             const center = cloneDeep(currentElementClone.elementPosition[1])
             
             if(rotateDirection === 'clockwise') return rotate(currentElementClone, center, gameField);
-            else return rotateReverse(currentElementClone, center)
+            else return rotateReverse(currentElementClone, center, gameField)
         }
         
         case 'R':{
@@ -25,27 +25,27 @@ const setRotate = (currentElement, rotateDirection, gameField) => {
             const center = cloneDeep(currentElementClone.elementPosition[0])
             
             if(rotateDirection === 'clockwise') return rotate(currentElementClone, center, gameField);
-            else return rotateReverse(currentElementClone, center)
+            else return rotateReverse(currentElementClone, center, gameField)
         }
 
         case 'T':{
             const center = cloneDeep(currentElementClone.elementPosition[0])
             
             if(rotateDirection === 'clockwise') return rotate(currentElementClone, center, gameField);
-            else return rotateReverse(currentElementClone, center)
+            else return rotateReverse(currentElementClone, center, gameField)
         }
 
         default:{
             const center = cloneDeep(currentElementClone.elementPosition[0])
             
             if(rotateDirection === 'clockwise') return rotate(currentElementClone, center, gameField);
-            else return rotateReverse(currentElementClone, center)
+            else return rotateReverse(currentElementClone, center, gameField)
         }
     }
 }
 
 const rotate = (currentElement, center, gameField) => {
-
+    if(!gameField) return currentElement;
     let isApplied = true; //проверка на то, можно ли повернуть элемент выбранным образом
 
     const currentElementOld = cloneDeep(currentElement);
@@ -69,8 +69,8 @@ const rotate = (currentElement, center, gameField) => {
 }
 
 const rotateReverse = (currentElement, center, gameField) => {
+    if(!gameField) return currentElement;
     let isApplied = true; //проверка на то, можно ли повернуть элемент выбранным образом
-
     const currentElementOld = cloneDeep(currentElement);
     const elementPosition = currentElement.elementPosition
 
@@ -82,6 +82,7 @@ const rotateReverse = (currentElement, center, gameField) => {
 
         if(fragment.positionX + fragment.positionY * 10 > 200 || 
             fragment.positionX + fragment.positionY * 10 < 0  ||
+            fragment.positionX >= 10 ||
             gameField[fragment.positionX + fragment.positionY * 10].type !== 'empty') isApplied = false;
 
         return fragment;
